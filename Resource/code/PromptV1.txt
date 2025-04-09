@@ -1,0 +1,24 @@
+<Title>Alphabet Inc (GOOGL/GOOG) Shares Drop Over 1% Amid Broad Market Decline</Title>
+<Content>
+Alphabet Inc's Class A (GOOGL) and Class C (GOOG) shares both experienced significant declines in today's trading session. 
+
+GOOGL closed at $144.70, down $2.05 (-1.40%) from the previous close of $146.75. The stock traded between $143.03 and $152.24 during the session, with over 52.2 million shares traded, well above the 65-day average volume of 37.3 million. 
+
+Similarly, GOOG closed at $146.58, dropping $2.66 (-1.78%). The trading range was $145.21 to $154.44, with volume of 35.3 million shares compared to the average of 24.3 million.
+
+Both stocks showed continued weakness in after-hours trading, with GOOGL falling an additional 1.01% to $143.24 and GOOG dropping 1.01% to $145.10. 
+
+Key metrics:
+- Both stocks are trading near their 52-week lows (GOOGL: $140.53, GOOG: $142.66)
+- Significant underperformance across all time horizons (1-week: -7.8%, 1-month: -16.6%, 3-month: -25%, YTD: -23%)
+- P/E ratios remain moderate at 17.97 for GOOGL and 18.22 for GOOG
+- Market capitalization stands at $1.81 trillion for both share classes
+
+The broader tech sector weakness appears to be weighing on Alphabet shares, though no company-specific news was released today.
+</Content>
+<Poll>
+  <Question>What's your outlook on Alphabet (GOOGL/GOOG) stock over the next month?</Question>
+  <Answer>Bullish - Expect a rebound to $160+</Answer>
+  <Answer>Neutral - Will trade in current $140-$150 range</Answer>
+  <Answer>Bearish - Could fall below $140 support</Answer>
+</Poll>
