@@ -60,7 +60,8 @@ def get_feeds_data(stock_id):
 # Prompt 模板构建及格式校验
 
 def generate_prompt(quotes_data, feeds_data):
-    feed_item = feeds_data[0]
+    # 取 feeds 数据中的第一个结果作为示例数据
+    feed_item = feeds_data[0] if isinstance(feeds_data, list) and len(feeds_data) > 0 else {}
     prompt = (
         "系统角色说明: 你是一位金融数据专家，熟悉股票报价和新闻资讯。你的任务是根据下列提供的金融数据生成一份内容，输出格式必须严格符合以下要求，否则请重新生成：\n\n"
         "生成内容格式要求:\n"
@@ -77,6 +78,10 @@ def generate_prompt(quotes_data, feeds_data):
     )
     return prompt
 
+
+
+
+
 def validate_output(content):
     title_pattern = r"<Title>.+</Title>"
     content_pattern = r"<Content>.+</Content>"
@@ -89,7 +94,9 @@ def validate_output(content):
         return False
 
 def call_chat_model(prompt):
-
+    """
+    调用 DeepSeek API，使用 "deepseek-chat" 大模型，根据 prompt 生成内容
+    """
     conversation = [
         {"role": "system", "content": "你是一位金融数据专家。"},
         {"role": "user", "content": prompt}
@@ -146,6 +153,8 @@ def main():
     file_path = "PromptV1.txt"
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(final_output)
+    print(f"最终生成的内容已保存到文件：{file_path}")
+
 
 if __name__ == "__main__":
     main()

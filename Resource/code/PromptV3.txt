@@ -1,0 +1,19 @@
+<Title>Meta Platforms Inc 风险雷达</Title>
+<Content>
+  • 波动率：IV30 = 35% ，位于过去一年 72% 分位。
+  • 宏观风险：美联储加息预期升温
+  • 公司特定：元宇宙战略投入持续加大
+  • 法律风险：面临"点赞按钮"集体诉讼赔偿
+</Content>
+<Reason>
+  - 美联储加息预期导致科技股承压
+  - 元宇宙业务仍处投入期影响盈利
+  - AI聊天机器人全球扩张带来运营风险
+  - "点赞按钮"集体诉讼达成和解
+</Reason>
+<Poll>
+  <Question>你的风险偏好？</Question>
+  <Answer>高</Answer>
+  <Answer>中</Answer>
+  <Answer>低</Answer>
+</Poll>

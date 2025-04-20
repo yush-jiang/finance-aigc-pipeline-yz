@@ -1,0 +1,33 @@
+<Title>Meta Platforms Inc 多空论点对比</Title>
+<Snapshot>
+  • 最新价：501.48 USD（-0.1652%）
+  • 52 周区间：414.5 – 740.91
+  • 市值：1270.58 B
+</Snapshot>
+<Content>
+   Bull Case
+  - 元宇宙领域持续领先，Quest头显市场份额超50%
+  - AI技术突破，聊天机器人扩展至21个新市场（2024全球布局）
+  - 现金流强劲（TTM自由现金流$38.2B），支持股票回购和战略投资
+  
+   Bear Case
+  - 面临欧盟和美国的多项反垄断诉讼（潜在罚款超营收10%）
+  - 广告业务受宏观经济影响，Q1营收增速放缓至6.7%
+  - 元宇宙业务年亏损超$16B，商业化进程缓慢
+</Content>
+<News>
+  - 被列为最佳元宇宙投资标的（The Motley Fool）
+  - AI聊天机器人全球扩张计划
+  - 面临数据隐私集体诉讼（$40/用户赔偿）
+</News>
+<Valuation>
+  • TTM PE：20.76（低于5年均值28.5）
+  • Forward PE：18.3（基于2025 EPS预估）
+  • PEG：1.12（显示估值相对合理）
+</Valuation>
+<Poll>
+  <Question>你当前立场？</Question>
+  <Answer>Bullish</Answer>
+  <Answer>Neutral</Answer>
+  <Answer>Bearish</Answer>
+</Poll>
