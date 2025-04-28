@@ -146,70 +146,48 @@ def call_deepseek(prompt: str,
 
 # Risk‑Radar Prompt 生成
 
-def build_risk_prompt(quotes: List[Dict[str, Any]],
-                      feeds: List[Dict[str, str]]) -> str:
+def build_bullbear_prompt(q: Dict[str, Any], feeds: List[Dict[str, str]]) -> str:
+    name  = q.get("displayName") or q.get("shortName") or "该股"
+    price = q.get("price", "N/A")
+    chg   = q.get("priceChangePercent", "N/A")
+    lo, hi = q.get("price52wLow", "N/A"), q.get("price52wHigh", "N/A")
+    mcap = round(q.get("marketCap", 0)/1e9, 2) if q.get("marketCap") else "N/A"
+    pe   = q.get("peRatio", "N/A")
+    news = [n["title"] for n in feeds[:3]] or ["暂无相关新闻"]
 
-    stock_name  = quotes[0].get("displayName", "该股") if quotes else "该股"
-    news_titles = [f["title"] for f in feeds[:3]] or ["暂无相关新闻"]
-
-    # few‑shot 示例
-    example = (
-        "<Title>某某公司 风险雷达</Title>\n"
+    return (
+        "请**全部使用简体中文**，并按照以下 XML 结构生成多空对比表。\n\n"
+        f"<Title>{name} 多空论点对比</Title>\n"
+        "<Snapshot>\n"
+        f"  • 最新价：{price} USD（{chg}%）\n"
+        f"  • 52 周区间：{lo} – {hi}\n"
+        f"  • 市值：{mcap} B\n"
+        "</Snapshot>\n"
         "<Content>\n"
-        "  • 波动率：IV30 = 42% ，位于过去一年 85% 分位。\n"
-        "  • 宏观风险：美国 CPI 超预期\n"
-        "  • 公司特定：供应链中断\n"
+        "   利多观点\n"
+        "  - {pros_1}\n"
+        "  - {pros_2}\n"
+        "   利空观点\n"
+        "  - {cons_1}\n"
+        "  - {cons_2}\n"
         "</Content>\n"
-        "<Reason>\n"
-        "  - 美国 CPI 超预期\n"
-        "  - 供应链中断\n"
-        "</Reason>\n"
+        "<News>\n" + "\n".join(f"  - {t}" for t in news) + "\n</News>\n"
+        "<Valuation>\n"
+        f"  • 市盈率（TTM）：{pe}\n"
+        f"  • 预估市盈率：{{forward_pe}}\n"
+        f"  • PEG：{{peg}}\n"
+        "</Valuation>\n"
         "<Poll>\n"
-        "  <Question>你的风险偏好？</Question>\n"
-        "  <Answer>高</Answer>\n"
-        "  <Answer>中</Answer>\n"
-        "  <Answer>低</Answer>\n"
-        "</Poll>\n\n"
+        "  <Question>你当前的立场？</Question>\n"
+        "  <Answer>看多</Answer>\n"
+        "  <Answer>中性</Answer>\n"
+        "  <Answer>看空</Answer>\n"
+        "</Poll>"
     )
 
-    reason_block = "\n".join(f"  - {t}" for t in news_titles)
-
-    prompt = (
-        "系统角色说明: 你是首席风险官，请基于行情和新闻生成风险雷达，严格遵守下列 XML 格式。\n"
-        "以下是示例：\n" + example +
-        "请按照相同结构，为下列公司生成风险雷达：\n\n"
-        f"<Title>{stock_name} 风险雷达</Title>\n"
-        "<Content>\n"
-        "  • 波动率：IV30 = {iv30}% ，位于过去一年 {iv_percentile}% 分位。\n"
-        "  • 宏观风险：{macro_headline}\n"
-        f"  • 公司特定：{news_titles[0]}\n"
-        "</Content>\n"
-        "<Reason>\n" + reason_block + "\n</Reason>\n"
-        "<Poll>\n"
-        "  <Question>你的风险偏好？</Question>\n"
-        "  <Answer>高</Answer>\n"
-        "  <Answer>中</Answer>\n"
-        "  <Answer>低</Answer>\n"
-        "</Poll>\n\n"
-        "【Quotes】:\n" + json.dumps(quotes, ensure_ascii=False, indent=2) + "\n\n"
-        "【Feeds】:\n"  + json.dumps(feeds,  ensure_ascii=False, indent=2)
-    )
-    return prompt
-
-
-
-# Risk‑Radar validate
-
-def validate_risk_output(text: str) -> bool:
-
-    if not re.search(r"<Title>.+?</Title>",   text, re.S):
-        return False
-    if not re.search(r"<Content>.+?</Content>", text, re.S):
-        return False
-    if not re.search(r"<Reason>.+?</Reason>",  text, re.S):
-        return False
-    answers = re.findall(r"<Answer>.+?</Answer>", text, re.S)
-    return len(answers) >= 3
+def validate_cn_output(txt: str) -> bool:
+    tags = ("Title", "Snapshot", "Content", "News", "Valuation", "Poll")
+    return all(re.search(fr"<{t}>.+?</{t}>", txt, re.S) for t in tags)
 
 
 
